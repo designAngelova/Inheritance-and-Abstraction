@@ -16,4 +16,4 @@ namespace School
         public IList<Class> Classes { get; set; }
     }
 }
-}
+

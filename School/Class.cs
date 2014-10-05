@@ -1,82 +1,102 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace School
+﻿namespace School
 {
-    class Class : IDetail
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
+    public class Class : IDetail
     {
-        private string uniqueTextId;
+        private static IList<string> uniqueIds;
+
+        private string uniqueId;
+        private IList<Teacher> teachers;
         private IList<Student> students;
-        private IList<Teacher> techers;
+        private string detail;
 
-        public Class(string uniqueTextId, IList<Student> students, IList<Teacher> teachers)
+        static Class()
         {
-            this.UniqueTextId = uniqueTextId;
-            this.Students = students;
-            this.Teachers = techers;
-
+            Class.uniqueIds = new List<string>();
         }
-       
-        public string UniqueTextId
+
+        public Class(string uniqueId, IList<Student> students, IList<Teacher> teachers)
+        {
+            this.UniqueId = uniqueId;
+            this.Teachers = teachers;
+            this.Students = students;
+            Class.uniqueIds.Add(uniqueId);
+        }
+
+        public string UniqueId
         {
             get
             {
-                return this.uniqueTextId;
+                return this.uniqueId;
             }
+
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("Unique text Id can not be empty");
+                    throw new ArgumentNullException("UniqueId", "UniqueId can not be null or empty!");
                 }
-                this.uniqueTextId = value;
+
+                if (uniqueIds.Contains(value))
+                {
+                    throw new ArgumentException("There is another class with this identification!");
+                }
+
+                this.uniqueId = value;
             }
         }
-       
-        public IList<Student> Students 
+
+        public IList<Teacher> Teachers
+        {
+            get
+            {
+                return this.teachers;
+            }
+
+            set
+            {
+                if (null == value)
+                {
+                    throw new ArgumentNullException("Teachers", "Teachers can not be null");
+                }
+
+                this.teachers = value;
+            }
+        }
+
+        public IList<Student> Students
         {
             get
             {
                 return this.students;
             }
+
             set
             {
-                if (value == null)
+                if (null == value)
                 {
-                    throw new ArgumentNullException("Students can not be null");
+                    throw new ArgumentNullException("Students", "Students can not be null");
                 }
+
                 this.students = value;
             }
         }
-        public IList<Teacher> Teachers 
+
+        public string Detail
         {
             get
             {
-                return this.techers;
+                return this.detail;
             }
+
             set
             {
-                if (value == null)
-                {
-                    throw new ArgumentNullException("Techers can not be null");
-                }
-                this.techers = value;
-            }
-        }
-
-
-        public string detail
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-            set
-            {
-                throw new NotImplementedException();
+                this.detail = value;
             }
         }
     }

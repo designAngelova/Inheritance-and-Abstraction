@@ -48,5 +48,9 @@ namespace School
                 this.detail = value;
             }
         }
+        public override string ToString()
+        {
+            return string.Format("Name: {0}, {1}", this.Name, this.detail);
+        }
     }
 }

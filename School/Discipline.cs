@@ -7,18 +7,32 @@ namespace School
     {
         private string name;
         private int lecturesNumber;
-        public IList<Student> students;
+        private List<Student> students;
         private string detail;
 
-        public Discipline(string name, IList<Student> students, int lecturesNumber, string detail = null)
-            
+        public Discipline(string name, List<Student> students, int lecturesNumber, string detail = null)
         {
             this.Name = name;
-            this.students = students;
+            this.Students = students;
             this.LecturesNumber = lecturesNumber;
             this.detail = detail;
         }
 
+        public List<Student> Students
+        {
+            get
+            {
+                return this.students;
+            }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Students can not be null");
+                }
+                this.students = value;
+            }
+        }
 
         public int LecturesNumber
         {
@@ -56,10 +70,6 @@ namespace School
             }
         }
 
-
-
-
-
         string IDetail.detail
         {
             get
@@ -70,6 +80,10 @@ namespace School
             {
                 throw new NotImplementedException();
             }
+        }
+        public override string ToString()
+        {
+            return string.Format("Name of discipline: {0}, Number of lectures:{1}, Students: {2}, Details: {3}", this.Name, this.LecturesNumber, this.students, this.detail);
         }
     }
 }

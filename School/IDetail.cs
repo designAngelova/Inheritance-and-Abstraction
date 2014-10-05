@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace School
 {
-    interface IDetail
+   public interface IDetail
     {
-        string detail { get; set; }
+        string Detail { get; set; }
     }
 }

@@ -10,10 +10,22 @@ namespace School
     {
         private IList<Discipline> disciplines;
 
-        public Teacher(string name, IList<Discipline> disciplines, string detail = null)
-            : base(name, detail)
+        public Teacher(string name)
+            : base(name)
+        {
+            this.Disciplines = new List<Discipline>();
+        }
+
+        public Teacher(string name, List<Discipline> disciplines)
+            : this(name)
         {
             this.Disciplines = disciplines;
+        }
+
+        public Teacher(string name, List<Discipline> disciplines, string detail)
+            : this(name, disciplines)
+        {
+            this.Detail = detail;
         }
 
         public IList<Discipline> Disciplines 
@@ -30,6 +42,10 @@ namespace School
                 }
                 this.disciplines = value;
             }
+        }
+        public override string ToString()
+        {
+            return string.Format("Name: {0}, List of Disciplines: {1}", this.Name, this.Disciplines);
         }
     }
 }
